@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -8,6 +9,7 @@ public class model {
     public static void main(String[] args) throws IOException {
         String input = new String();
         FileReader file = new FileReader("input.txt");
+
 
         BufferedReader bufferedreader = new BufferedReader(file);
         Scanner scanner = new Scanner(bufferedreader);
@@ -23,6 +25,10 @@ public class model {
 
 
     private static int encrypt(int input, int key) {
+        return (input^key);
+    }
+
+    private static int decrypt(int input, int key) {
         return (input^key);
     }
 }
