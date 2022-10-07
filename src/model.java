@@ -8,34 +8,28 @@ import static java.lang.Integer.toHexString;
 
 public class model {
 
-    public static void main(String[] args) throws IOException {
-        String input = new String();
-        int m;
-        int key = '(';
-        String krypt = new String();
-
-        fileread(input);
-        toHex(input);
-        System.out.println(krypt);
-
-        System.out.println(fileread(input));
-
-        System.out.println(krypt);
-    }
+    String input = new String();
+    String key = "dong";
+    String krypt = new String();
 
 
 
 
-        private static String toHex (String input, String krypt, int key){
-            int m;
+        private static String crypt_string(String input, String krypt, String key){
             for (int i = 0; i < input.length(); i++) {
-                m = input.charAt(i);
-                String hex = toHexString(encrypt(key,m));
-                krypt += hex;
+                krypt += encrypt(input.charAt(i), key.charAt(i));
             }
             return krypt;
         }
 
+        private static String extendKey(String key, String input) {
+            if (key.length() < input.length()) {
+                for (int i = 0; key.length() < input.length(); i++) {
+                    key += key.charAt(i);
+                }
+            }
+            return key;
+        }
 
 
         private static String fileread (String input) throws IOException {
@@ -53,6 +47,8 @@ public class model {
         }
 
 
+
+
         private static int encrypt ( int m, int key){
             return (m ^ key);
         }
@@ -60,5 +56,11 @@ public class model {
         private static int decrypt ( int m, int key){
             return (m ^ key);
         }
+
+    public static void main(String[] args) {
+        String key = "dong";
+        String input = "dingdingdi";
+        System.out.println(extendKey(key, input));
+    }
     }
 
