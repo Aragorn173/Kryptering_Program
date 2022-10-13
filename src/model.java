@@ -8,21 +8,32 @@ import static java.lang.Integer.toHexString;
 
 public class model {
 
-    String input = new String();
-    String key = "dong";
-    String krypt = new String();
+    private String input;
+    private String key;
+    private String krypt;
 
 
+        public void setInput(String message) {
+            this.input = input;
+        }
+        public void setKey(String key) {
+            this.key = key;
+        }
+
+        public String getCrypt() {
+            return krypt;
+        }
 
 
-        private static String crypt_string(String input, String krypt, String key){
+        public String crypt_string(){
             for (int i = 0; i < input.length(); i++) {
                 krypt += encrypt(input.charAt(i), key.charAt(i));
+
             }
             return krypt;
         }
 
-        private static String extendKey(String key, String input) {
+        public String extendKey() {
             if (key.length() < input.length()) {
                 for (int i = 0; key.length() < input.length(); i++) {
                     key += key.charAt(i);
@@ -32,7 +43,7 @@ public class model {
         }
 
 
-        private static String fileread (String input) throws IOException {
+        private String fileread () throws IOException {
             FileReader file = new FileReader("input.txt");
 
 
@@ -53,14 +64,15 @@ public class model {
             return (m ^ key);
         }
 
-        private static int decrypt ( int m, int key){
-            return (m ^ key);
-        }
 
     public static void main(String[] args) {
-        String key = "dong";
-        String input = "dingdingdi";
-        System.out.println(extendKey(key, input));
+        String k = "dong";
+        String m = "dingdingdi";
+
+        model cryptModel = new model();
+        cryptModel.setInput(m);
+        cryptModel.setKey(k);
+        System.out.println(cryptModel.extendKey());
     }
-    }
+}
 
