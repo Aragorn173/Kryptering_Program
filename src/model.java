@@ -1,19 +1,14 @@
-import javax.swing.*;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.Scanner;
-
-import static java.lang.Integer.toHexString;
 
 public class model {
 
-    private String input;
+    private String input = "";
     private String key;
-    private String krypt;
+    private String krypt = "";
 
 
-        public void setInput(String message) {
+        public void setInput(String input) {
             this.input = input;
         }
         public void setKey(String key) {
@@ -27,14 +22,14 @@ public class model {
 
         public String crypt_string(){
             for (int i = 0; i < input.length(); i++) {
-                krypt += encrypt(input.charAt(i), key.charAt(i));
+                krypt += (char) encrypt(input.charAt(i), key.charAt(i));
 
             }
             return krypt;
         }
 
         public String extendKey() {
-            if (key.length() < input.length()) {
+            if (input.length() > key.length()) {
                 for (int i = 0; key.length() < input.length(); i++) {
                     key += key.charAt(i);
                 }
@@ -43,8 +38,13 @@ public class model {
         }
 
 
-        private String fileread () throws IOException {
-            FileReader file = new FileReader("input.txt");
+        public String fileread () {
+            FileReader file = null;
+            try {
+                file = new FileReader("input.txt");
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
 
 
             BufferedReader bufferedreader = new BufferedReader(file);
@@ -53,26 +53,54 @@ public class model {
             while (scanner.hasNextLine()) {
                 input = input + scanner.nextLine();
             }
-            bufferedreader.close();
+            try {
+                bufferedreader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             return input;
+        }
+
+
+        public void filewrite() {
+        String str = krypt;
+            BufferedWriter writer = null;
+            try {
+                writer = new BufferedWriter(new FileWriter("output.txt"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                writer.write(str);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
 
 
 
-        private static int encrypt ( int m, int key){
+        private int encrypt ( int m, int key){
             return (m ^ key);
         }
 
 
     public static void main(String[] args) {
-        String k = "dong";
-        String m = "dingdingdi";
+        String k = "¤%";
+        String input = "";
 
         model cryptModel = new model();
-        cryptModel.setInput(m);
+        input = cryptModel.fileread();
+        cryptModel.setInput(input);
         cryptModel.setKey(k);
         System.out.println(cryptModel.extendKey());
+        System.out.println(cryptModel.crypt_string());
+        cryptModel.filewrite();
     }
 }
-
