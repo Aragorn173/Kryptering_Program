@@ -1,3 +1,5 @@
+package Kryptering_Program;
+
 import javax.swing.*;
 import java.awt.event.ActionListener;
 
@@ -19,17 +21,20 @@ public class gui {
         return panel;
     }
 
-    public String getMessage() {
+    public String getInput() {
         return inputtextfield.getText();
     }
+
+    public void setInput(String c) { inputtextfield.setText(c);}
 
     public String getKey() {
         return inputkeyfield.getText();
     }
 
-    public void setCrypt(String c) {
-        outputcrypt.setText(c);
-    }
+    public void setKey(String c) {inputkeyfield.setText(c);}
+
+
+    public void setCrypt(String c) {outputcrypt.setText(c);}
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("View");
@@ -46,5 +51,8 @@ public class gui {
     }
     public void setinputListener(ActionListener inputListener) {
         importTextFromInputButton.addActionListener(inputListener);
+    }
+    public void setexportListner(ActionListener exportListener) {
+        exportToOutputTxtButton.addActionListener(exportListener);
     }
 }

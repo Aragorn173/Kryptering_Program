@@ -1,10 +1,12 @@
+package Kryptering_Program;
+
 import java.io.*;
 import java.util.Scanner;
 
 public class model {
 
     private String input = "";
-    private String key;
+    private String key = "";
     private String krypt = "";
 
 
@@ -18,6 +20,14 @@ public class model {
         public String getCrypt() {
             return krypt;
         }
+
+        public String getkey() {
+        return key;
+    }
+
+        public String getinput() {
+        return input;
+    }
 
 
         public String crypt_string(){
@@ -60,6 +70,29 @@ public class model {
             }
             return input;
         }
+
+    public String keyread () {
+        FileReader file = null;
+        try {
+            file = new FileReader("key.txt");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+
+        BufferedReader bufferedreader = new BufferedReader(file);
+        Scanner scanner = new Scanner(bufferedreader);
+
+        while (scanner.hasNextLine()) {
+            key = key + scanner.nextLine();
+        }
+        try {
+            bufferedreader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return key;
+    }
 
 
         public void filewrite() {
